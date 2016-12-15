@@ -12,6 +12,9 @@ class UserStocksController < ApplicationController
   def show
   end
 
+	def my_friends
+	end
+
   # GET /user_stocks/new
   def new
     @user_stock = UserStock.new
