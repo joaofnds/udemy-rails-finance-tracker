@@ -4,7 +4,7 @@
 		<div class="form-group row no-padding text-center col-md-12">
 			<div class="col-md-10">
 				<%= text_field_tag :search_param, params[:search_param],
-														placeholder: "Search for a frind...",
+														placeholder: "Search for a friend...",
 														autofocus: true,
 														class: 'form-control search-box input-lg' %>
 			</div>
@@ -21,22 +21,24 @@
 			<div id="friend-lookup-results" class="well results-block col-md-10">
 				<table class="search-results-table col-md-12">
 					<tbody>
-						<% @user.each do |user| %>
+						<% @users.each do |user| %>
 							<tr>
-								<td> <strong>Name:</strong> <% user.full_name %> </td>
-								<td> <strong>Email:</strong> <% user.email %> </td>
+								<td> <strong>Name:</strong> <%= user.full_name %> </td>
+								<td> <strong>Email:</strong> <%= user.email %> </td>
 								<td> <%= link_to "View profile", user_path(user),
 																						 class: 'btn btn-xs btn-success' %> </td>
-								<% if current_user.not_friends.with?(user.id) %>
-									<span class="glyphicon glyphicon-plus"></span>
-									<%= link_to "Add friend", add_friend_path(user: current_user, friend: user),
-																					class: "btn btn-xs btn-success",
-																					method: :post %>
+								<% if current_user.not_friends_with?(user.id) %>
+									<td>
+										<%= link_to "Add friend", add_friend_path(user: current_user, friend: user),
+																						class: "btn btn-xs btn-success",
+																						method: :post %> 
+									</td>
 								<% else %>
-									<span class="label label-primary">
-										<span class="glyphicon glyphicon-ok"></span>
-										Already a friend
-									</span>
+									<td>
+										<span class="label label-primary">
+											Already a friend
+										</span>
+									</td>
 								<% end %>
 							</tr>
 						<% end %>
